@@ -1,4 +1,5 @@
 # Enzyme State Change Emitter
+*Status: pre-release*
 
 ## Problem
 How can we make assertions in our test harness for values that are modified via async actions. Previously, there would just be explicit delays using `setTimeout` or `setInterval`, which would slow down the test suite and result in undefined behavior depending on how fast the mocks responded. 
@@ -8,7 +9,7 @@ This library taps into the `React.Component` prototype to create custom wrapper 
 
 
 ### Event Structure
-Events for the `setState` method are emitted as emitted as both indexed and non-indexed events: `<function>:<lifecycle>` and `<function>:<lifecycle>:<invocationCount>`. This allows you to listen to every single lifecycle event, or pick and choose which ones you want to listen for. This is helpful if you know for certain when the component updates. 
+Events for the `setState` method are emitted as both indexed and non-indexed events: `<function>:<lifecycle>` and `<function>:<lifecycle>:<invocationCount>`. This allows you to listen to every single lifecycle event, or pick and choose which ones you want to listen for. This is helpful if you know for certain when the component updates. 
 
 ### Example
 The following example uses `jest` as the test harness. The component displays the current exchange rate of Bitcoin to USD. 
