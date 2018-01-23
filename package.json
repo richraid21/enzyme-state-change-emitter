@@ -1,0 +1,13 @@
+{
+  "name": "enzyme-state-change-emitter",
+  "version": "1.0.0",
+  "description": "Listen for events when a component goes through a state change",
+  "main": "main.js",
+  "repository": "https://github.com/richraid21/enzyme-state-change-emitter.git",
+  "author": "Rich Dillon <richraid21@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "enzyme": "^3.3.0",
+    "react": "^16.2.0"
+  }
+}
