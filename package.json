@@ -1,6 +1,6 @@
 {
   "name": "enzyme-lifecycle-emitter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Listen for events while a component goes through its lifecycle",
   "main": "main.js",
   "repository": "https://github.com/richraid21/enzyme-state-change-emitter.git",
