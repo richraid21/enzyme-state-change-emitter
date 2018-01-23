@@ -7,19 +7,17 @@ const mount = enzyme.mount
 class EnzymeStateChangeEmitter extends EventEmitter {
     constructor(component, options){
         super()
-        
         this.state = {
             component,
-            methods: {
-                setState: {
-                    calls: []
-                }
-            }
+            methods: {}
         }
 
         this._prepareInterceptors([
-            { name: 'setState', hasCallback: true }
+            { name: 'setState', hasCallback: true, location: React.Component.prototype },
+            { name: 'componentWillReceiveProps', hasCallback: false, location: component.prototype },
+            { name: 'componentDidUpdate', hasCallback: false, location: component.prototype }
         ])
+        
         return this
     }
 
@@ -40,10 +38,10 @@ class EnzymeStateChangeEmitter extends EventEmitter {
             this.state.methods[method].calls.push(args)
         }
 
-        const intercept = (method, includeCallback) => {
-            const original = React.Component.prototype[method]
-
-            React.Component.prototype[method] = function() {
+        const intercept = (method, includeCallback, obj) => {
+            const original = obj[method]
+            
+            obj[method] = function() {
                 record(method, arguments)
                 emit(method, 'begin')
 
@@ -59,17 +57,21 @@ class EnzymeStateChangeEmitter extends EventEmitter {
                 if (includeCallback)
                     args.push(_cb)
                 
-                original.apply(this, args)
+                if (typeof original === 'function')
+                    original.apply(this, args)
             }
         }
-
-        methods.forEach(method => intercept(method.name, method.hasCallback))
+        
+        methods.forEach(method => {
+            this.state.methods[method.name] = { calls: [] }
+            intercept(method.name, method.hasCallback, method.location)
+        })
 
     }
 
 
     mount(){
-        this.state.wrapper = mount(this.state.component)
+        this.state.wrapper = mount(<this.state.component />)
         return this
     }
 

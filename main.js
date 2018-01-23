@@ -1,3 +1,3 @@
-const EnzymeStateChangeEmitter = require('./src/EnzymeStateChangeEmitter')
+const EnzymeLifecycleEmitter = require('./src/EnzymeLifecycleEmitter')
 
-module.exports = EnzymeStateChangeEmitter
+module.exports = EnzymeLifecycleEmitter
